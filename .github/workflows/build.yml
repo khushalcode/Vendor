@@ -29,6 +29,12 @@ jobs:
           echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
       - name: Debug key.properties
         run: cat android/key.properties
+      - name: Debug signing
+        run: |
+          echo "=== key.properties ==="
+          cat android/key.properties
+          echo "=== keystore aliases ==="
+          keytool -list -keystore android/app/keystore.jks -storepass ${{ secrets.STORE_PASSWORD }}
       - name: Get dependencies
         run: flutter pub get
       - name: Build AAB
