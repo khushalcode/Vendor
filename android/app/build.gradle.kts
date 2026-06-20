@@ -30,7 +30,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.greenpacmeal.vendor"
+        applicationId = "com.ncmart.vendor"
         minSdk = flutter.minSdkVersion
         targetSdk = 36
         versionCode = flutter.versionCode
