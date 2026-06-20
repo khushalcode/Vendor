@@ -27,6 +27,8 @@ jobs:
           echo "storePassword=${{ secrets.STORE_PASSWORD }}" >> android/key.properties
           echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
           echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
+      - name: Debug key.properties
+        run: cat android/key.properties
       - name: Get dependencies
         run: flutter pub get
       - name: Build AAB
@@ -36,3 +38,4 @@ jobs:
         with:
           name: app-release
           path: build/app/outputs/bundle/release/app-release.aab
+
