@@ -1,4 +1,4 @@
-﻿name: Build Flutter AAB
+﻿name: Build Flutter APK
 on:
   push:
     branches:
@@ -37,10 +37,10 @@ jobs:
             ${{ runner.os }}-gradle-
       - name: Get dependencies
         run: flutter pub get
-      - name: Build AAB
-        run: flutter build appbundle --release
-      - name: Upload AAB
+      - name: Build APK
+        run: flutter build apk --release
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-release
-          path: build/app/outputs/bundle/release/app-release.aab
+          path: build/app/outputs/flutter-apk/app-release.apk
