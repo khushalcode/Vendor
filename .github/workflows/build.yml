@@ -1,8 +1,10 @@
-﻿name: Build Flutter AAB
+﻿name: Build Flutter APK
+
 on:
   push:
     branches:
       - master
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -10,22 +12,28 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.35.7'
           channel: stable
           cache: true
+
       - name: Decode keystore
         run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/keystore.jks
+
       - name: Create key.properties
         run: |
-          printf 'storeFile=keystore.jks\nstorePassword=%s\nkeyAlias=upload\nkeyPassword=%s\n' '${{ secrets.STORE_PASSWORD }}' '${{ secrets.KEY_PASSWORD }}' > android/key.properties
+          printf 'storeFile=keystore.jks\nstorePassword=%s\nkeyAlias=upload\nkeyPassword=%s\n' \
+            '${{ secrets.STORE_PASSWORD }}' '${{ secrets.KEY_PASSWORD }}' > android/key.properties
+
       - name: Cache Gradle
         uses: actions/cache@v4
         with:
@@ -35,12 +43,15 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+
       - name: Get dependencies
         run: flutter pub get
-      - name: Build AAB
-        run: flutter build appbundle --release
-      - name: Upload AAB
+
+      - name: Build APK
+        run: flutter build apk --release
+
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: app-release
-          path: build/app/outputs/bundle/release/app-release.aab
+          name: app-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
