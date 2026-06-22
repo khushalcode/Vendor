@@ -1,4 +1,4 @@
-name: sixam_mart_store
+﻿name: sixam_mart_store
 description: An application for multivendor ecommerce restaurant.
 publish_to: 'none'
 version: 1.0.0+1
@@ -68,6 +68,14 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.3
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/image/app_icon.png"
+  adaptive_icon_background: "#ffffff"
+  min_sdk_android: 21
 
 flutter:
   uses-material-design: true
@@ -90,3 +98,4 @@ flutter:
           weight: 700
         - asset: assets/font/Poppins-Black.ttf
           weight: 900
+
